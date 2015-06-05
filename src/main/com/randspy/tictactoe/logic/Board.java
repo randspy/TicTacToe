@@ -18,14 +18,18 @@ public class Board {
         return NUMBER_OF_COLUMNS;
     }
 
-    public void setPlayerAtPosition(Player player, int positionOnBoard) {
-        boardElements[positionOnBoard] = player;
+    public void setPlayerAtPosition(Player player, PositionOnBoard positionOnBoard) {
+        boardElements[positionOnBoard.get()] = player;
     }
 
     public boolean isFull() {
         return Arrays.stream(boardElements)
                 .filter(field -> field != null)
                 .count() == NUMBER_OF_BOARD_FIELDS;
+    }
+
+    public Player getPlayerAtPosition(PositionOnBoard positionOnBoard) {
+        return boardElements[positionOnBoard.get()];
     }
 
     @Override
@@ -43,9 +47,5 @@ public class Board {
     @Override
     public int hashCode() {
         return boardElements != null ? Arrays.hashCode(boardElements) : 0;
-    }
-
-    public Player getPlayerAtPosition(int positionOnBoard) {
-        return boardElements[positionOnBoard];
     }
 }

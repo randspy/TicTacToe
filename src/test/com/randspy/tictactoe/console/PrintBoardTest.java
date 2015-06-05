@@ -3,6 +3,7 @@ package com.randspy.tictactoe.console;
 import com.randspy.tictactoe.logic.Board;
 import com.randspy.tictactoe.logic.HumanPlayer;
 import com.randspy.tictactoe.logic.Player;
+import com.randspy.tictactoe.logic.PositionOnBoard;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -51,7 +52,7 @@ public class PrintBoardTest {
         for (int idx = 0; idx < Board.getNumberOfBoardFields(); idx++) {
 
             boolean isEven = idx % 2 == 0;
-            board.setPlayerAtPosition(isEven ? xPlayer : oPlayer, idx);
+            board.setPlayerAtPosition(isEven ? xPlayer : oPlayer, new PositionOnBoard(idx));
         }
 
         assertEquals(printedConsole, new PrintBoard().print(board, mapping));

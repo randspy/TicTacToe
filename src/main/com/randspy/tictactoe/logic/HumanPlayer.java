@@ -8,7 +8,7 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public int nextMove(Board board) {
-        return input.getInput();
+    public PositionOnBoard nextMove(Board board) {
+        return new PositionOnBoard(input.getInput());
     }
 }

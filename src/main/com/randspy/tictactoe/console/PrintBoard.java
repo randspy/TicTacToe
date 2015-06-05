@@ -1,6 +1,7 @@
 package com.randspy.tictactoe.console;
 
 import com.randspy.tictactoe.logic.Board;
+import com.randspy.tictactoe.logic.PositionOnBoard;
 
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public class PrintBoard {
 
         for (int idx = positionOnBoard; idx < positionOnBoard + Board.getNumberOfColumns(); idx++) {
             Optional<String> playersCharacter =
-                    mapping.getCharacter(board.getPlayerAtPosition(idx));
+                    mapping.getCharacter(board.getPlayerAtPosition(new PositionOnBoard(idx)));
 
             final String emptyField = " ";
             final String gameFiled = playersCharacter.isPresent() ? playersCharacter.get() : emptyField;

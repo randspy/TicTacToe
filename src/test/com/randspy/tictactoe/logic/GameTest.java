@@ -11,11 +11,11 @@ public class GameTest {
 
     private class StubPlayer implements Player {
         @Override
-        public int nextMove(Board board) {
+        public PositionOnBoard nextMove(Board board) {
             return moves.pop();
         }
 
-        public LinkedList<Integer> moves = new LinkedList<>();
+        public LinkedList<PositionOnBoard> moves = new LinkedList<>();
     }
 
     private Game game;
@@ -39,10 +39,10 @@ public class GameTest {
         int leftUpCorner = 0;
 
         StubPlayer player = new StubPlayer();
-        player.moves.push(leftUpCorner);
+        player.moves.push(new PositionOnBoard(leftUpCorner));
 
         Board expectedBoard = new Board();
-        expectedBoard.setPlayerAtPosition(player, leftUpCorner);
+        expectedBoard.setPlayerAtPosition(player, new PositionOnBoard(leftUpCorner));
 
         game.play(player);
         assertEquals(expectedBoard, game.getBoard());
@@ -57,8 +57,8 @@ public class GameTest {
         Board expectedBoard = new Board();
 
         for (int idx = 0; idx < Board.getNumberOfBoardFields(); idx++) {
-            player.moves.push(idx);
-            expectedBoard.setPlayerAtPosition(player, idx);
+            player.moves.push(new PositionOnBoard(idx));
+            expectedBoard.setPlayerAtPosition(player, new PositionOnBoard(idx));
             game.play(player);
         }
 
