@@ -7,16 +7,11 @@ import java.util.Optional;
 public class PrintBoard {
     private Board board;
     private PlayerToDisplayedCharacterMapping mapping;
-    private int positionOnBoard = 0;
+    private int positionOnBoard;
 
-    public PrintBoard(Board board, PlayerToDisplayedCharacterMapping mapping) {
-        this.board = board;
-        this.mapping = mapping;
-    }
+    public String print(Board board, PlayerToDisplayedCharacterMapping mapping) {
 
-
-    public String print() {
-
+        init(board, mapping);
         return printHorizontalSeparator() +
                 printRow() +
                 printHorizontalSeparator() +
@@ -24,6 +19,12 @@ public class PrintBoard {
                 printHorizontalSeparator() +
                 printRow() +
                 printHorizontalSeparator();
+    }
+
+    private void init(Board board, PlayerToDisplayedCharacterMapping mapping) {
+        this.board = board;
+        this.mapping = mapping;
+        this.positionOnBoard = 0;
     }
 
     private String printRow() {

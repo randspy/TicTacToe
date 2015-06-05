@@ -21,10 +21,10 @@ public class PrintBoardTest {
                 "-------\n";
 
         Board board = new Board();
-        PrintBoard printBoard = new PrintBoard(
-                board, new PlayerToDisplayedCharacterMapping());
+        PrintBoard printBoard = new PrintBoard();
 
-        assertEquals(printedConsole, printBoard.print());
+        assertEquals(printedConsole,
+                printBoard.print(board, new PlayerToDisplayedCharacterMapping()));
     }
 
     @Test
@@ -41,10 +41,10 @@ public class PrintBoardTest {
         PlayerToDisplayedCharacterMapping mapping =
                 new PlayerToDisplayedCharacterMapping();
 
-        Player xPlayer = new HumanPlayer();
+        Player xPlayer = new HumanPlayer(null);
         mapping.map(xPlayer, "x");
 
-        Player oPlayer = new HumanPlayer();
+        Player oPlayer = new HumanPlayer(null);
         mapping.map(oPlayer, "o");
 
         Board board = new Board();
@@ -54,10 +54,6 @@ public class PrintBoardTest {
             board.setPlayerAtPosition(isEven ? xPlayer : oPlayer, idx);
         }
 
-        PrintBoard printBoard = new PrintBoard(board, mapping);
-
-        assertEquals(printedConsole, printBoard.print());
+        assertEquals(printedConsole, new PrintBoard().print(board, mapping));
     }
-
-
 }

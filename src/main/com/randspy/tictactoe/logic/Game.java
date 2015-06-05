@@ -3,8 +3,8 @@ package com.randspy.tictactoe.logic;
 public class Game {
     private Board board = new Board();
 
-    public void play(Player player, int positionOnBoard) {
-        board.setPlayerAtPosition(player, positionOnBoard);
+    public void play(Player player) {
+        board.setPlayerAtPosition(player, player.nextMove(board));
     }
 
     public Board getBoard() {

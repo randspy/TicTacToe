@@ -1,5 +1,6 @@
 package com.randspy.tictactoe;
 
+import com.randspy.tictactoe.console.ConsoleInput;
 import com.randspy.tictactoe.console.PlayerToDisplayedCharacterMapping;
 import com.randspy.tictactoe.console.PrintBoard;
 import com.randspy.tictactoe.logic.Game;
@@ -11,15 +12,15 @@ public class Main {
     public static void main(String[] args) {
 
         Game game = new Game();
-        Player humanPlayer = new HumanPlayer();
+        Player humanPlayer = new HumanPlayer(new ConsoleInput());
         PlayerToDisplayedCharacterMapping mapping =
                 new PlayerToDisplayedCharacterMapping();
 
         mapping.map(humanPlayer, "x");
 
         while (!game.isFinished()) {
-            game.play(humanPlayer, new Integer(System.console().readLine()));
-            System.out.print(new PrintBoard(game.getBoard(), mapping).print());
+            game.play(humanPlayer);
+            System.out.print(new PrintBoard().print(game.getBoard(), mapping));
         }
     }
 }
