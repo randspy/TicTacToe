@@ -52,7 +52,9 @@ public class PrintBoardTest {
         for (int idx = 0; idx < Board.getNumberOfBoardFields(); idx++) {
 
             boolean isEven = idx % 2 == 0;
-            board.setPlayerAtPosition(isEven ? xPlayer : oPlayer, new PositionOnBoard(idx));
+            int row = idx / Board.getNumberOfRows();
+            int column = idx % Board.getNumberOfColumns();
+            board.setPlayerAtPosition(isEven ? xPlayer : oPlayer, new PositionOnBoard(row, column));
         }
 
         assertEquals(printedConsole, new PrintBoard().print(board, mapping));

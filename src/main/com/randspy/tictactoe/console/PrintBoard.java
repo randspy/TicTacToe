@@ -8,7 +8,7 @@ import java.util.Optional;
 public class PrintBoard {
     private Board board;
     private PlayerToDisplayedCharacterMapping mapping;
-    private int positionOnBoard;
+    private int row;
 
     public String print(Board board, PlayerToDisplayedCharacterMapping mapping) {
 
@@ -25,28 +25,28 @@ public class PrintBoard {
     private void init(Board board, PlayerToDisplayedCharacterMapping mapping) {
         this.board = board;
         this.mapping = mapping;
-        this.positionOnBoard = 0;
-    }
-
-    private String printRow() {
-        final String rowSeparator = "|";
-        String row = rowSeparator;
-
-        for (int idx = positionOnBoard; idx < positionOnBoard + Board.getNumberOfColumns(); idx++) {
-            Optional<String> playersCharacter =
-                    mapping.getCharacter(board.getPlayerAtPosition(new PositionOnBoard(idx)));
-
-            final String emptyField = " ";
-            final String gameFiled = playersCharacter.isPresent() ? playersCharacter.get() : emptyField;
-
-            row += gameFiled + rowSeparator;
-        }
-
-        positionOnBoard += Board.getNumberOfColumns();
-        return row + "\n";
+        this.row = 0;
     }
 
     private String printHorizontalSeparator() {
         return "-------\n";
+    }
+
+    private String printRow() {
+        final String rowSeparator = "|";
+        String printedRow = rowSeparator;
+
+        for (int idx = 0; idx < Board.getNumberOfColumns(); idx++) {
+            Optional<String> playersCharacter =
+                    mapping.getCharacter(board.getPlayerAtPosition(new PositionOnBoard(row, idx)));
+
+            final String emptyField = " ";
+            final String gameFiled = playersCharacter.isPresent() ? playersCharacter.get() : emptyField;
+
+            printedRow += gameFiled + rowSeparator;
+        }
+
+        ++row;
+        return printedRow + "\n";
     }
 }

@@ -34,15 +34,15 @@ public class GameTest {
     }
 
     @Test
-    public void whenOneTheFieldsAreOccupiedGameIsFinished() {
+    public void whenOneOfTheFieldsAreOccupiedGameIsNotFinished() {
 
         int leftUpCorner = 0;
 
         StubPlayer player = new StubPlayer();
-        player.moves.push(new PositionOnBoard(leftUpCorner));
+        player.moves.push(new PositionOnBoard(leftUpCorner, leftUpCorner));
 
         Board expectedBoard = new Board();
-        expectedBoard.setPlayerAtPosition(player, new PositionOnBoard(leftUpCorner));
+        expectedBoard.setPlayerAtPosition(player, new PositionOnBoard(leftUpCorner, leftUpCorner));
 
         game.play(player);
         assertEquals(expectedBoard, game.getBoard());
@@ -56,10 +56,12 @@ public class GameTest {
 
         Board expectedBoard = new Board();
 
-        for (int idx = 0; idx < Board.getNumberOfBoardFields(); idx++) {
-            player.moves.push(new PositionOnBoard(idx));
-            expectedBoard.setPlayerAtPosition(player, new PositionOnBoard(idx));
-            game.play(player);
+        for (int idx = 0; idx < Board.getNumberOfRows(); idx++) {
+            for (int idy = 0; idy < Board.getNumberOfColumns(); idy++) {
+                player.moves.push(new PositionOnBoard(idx, idy));
+                expectedBoard.setPlayerAtPosition(player, new PositionOnBoard(idx, idy));
+                game.play(player);
+            }
         }
 
         assertEquals(expectedBoard, game.getBoard());

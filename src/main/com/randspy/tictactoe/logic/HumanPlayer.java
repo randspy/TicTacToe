@@ -9,6 +9,9 @@ public class HumanPlayer implements Player {
 
     @Override
     public PositionOnBoard nextMove(Board board) {
-        return new PositionOnBoard(input.getInput());
+        int userInput = input.getInput();
+        int row =  userInput / 3;
+        int column = userInput % 3;
+        return new PositionOnBoard(row, column);
     }
 }

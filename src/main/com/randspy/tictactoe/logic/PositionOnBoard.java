@@ -1,13 +1,19 @@
 package com.randspy.tictactoe.logic;
 
 public class PositionOnBoard {
-    public PositionOnBoard(int value) {
-        this.value = value;
+    private int row;
+    private int column;
+
+    public PositionOnBoard(int row, int column) {
+        this.row = row;
+        this.column = column;
     }
 
-    public int get() {
-        return value;
+    public int getRow() {
+        return row;
     }
 
-    private int value = 0;
+    public int getColumn() {
+        return column;
+    }
 }
