@@ -52,8 +52,8 @@ public class PrintBoardTest {
         for (int idx = 0; idx < Board.getNumberOfBoardFields(); idx++) {
 
             boolean isEven = idx % 2 == 0;
-            int row = idx / Board.getNumberOfRows();
-            int column = idx % Board.getNumberOfColumns();
+            int row = idx / Board.getDimension();
+            int column = idx % Board.getDimension();
             board.setPlayerAtPosition(isEven ? xPlayer : oPlayer, new PositionOnBoard(row, column));
         }
 

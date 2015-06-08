@@ -56,8 +56,8 @@ public class GameTest {
 
         Board expectedBoard = new Board();
 
-        for (int idx = 0; idx < Board.getNumberOfRows(); idx++) {
-            for (int idy = 0; idy < Board.getNumberOfColumns(); idy++) {
+        for (int idx = 0; idx < Board.getDimension(); idx++) {
+            for (int idy = 0; idy < Board.getDimension(); idy++) {
                 player.moves.push(new PositionOnBoard(idx, idy));
                 expectedBoard.setPlayerAtPosition(player, new PositionOnBoard(idx, idy));
                 game.play(player);

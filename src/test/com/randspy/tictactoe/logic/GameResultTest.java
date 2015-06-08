@@ -15,26 +15,26 @@ public class GameResultTest {
     private GameResult gameResult;
 
     private void setRowWithWinningPlayer(Player player, int rowNumber) {
-        for (int idx = 0; idx < Board.getNumberOfColumns(); idx++) {
+        for (int idx = 0; idx < Board.getDimension(); idx++) {
             board.setPlayerAtPosition(player, new PositionOnBoard(rowNumber, idx));
         }
     }
 
     private void setColumnWithWinningPlayer(Player player, int columnNumber) {
-        for (int idx = 0; idx < Board.getNumberOfRows(); idx++) {
+        for (int idx = 0; idx < Board.getDimension(); idx++) {
             board.setPlayerAtPosition(player, new PositionOnBoard(idx, columnNumber));
         }
     }
 
     private void setDiagonalFromLeftToRightWithWinningPlayer(Player player) {
-        for (int idx = 0; idx < Board.getNumberOfRows(); idx++) {
+        for (int idx = 0; idx < Board.getDimension(); idx++) {
             board.setPlayerAtPosition(player, new PositionOnBoard(idx, idx));
         }
     }
 
     private void setDiagonalFromRightToLeftWithWinningPlayer(Player player) {
-        int idy = Board.getNumberOfColumns() - 1;
-        for (int idx = 0; idx < Board.getNumberOfRows(); idx++, idy--) {
+        int idy = Board.getDimension() - 1;
+        for (int idx = 0; idx < Board.getDimension(); idx++, idy--) {
                 board.setPlayerAtPosition(player, new PositionOnBoard(idx, idy));
         }
     }

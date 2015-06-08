@@ -30,8 +30,8 @@ public class GameResult {
     private Set<Player> getPlayersPresentOnBoard(Board board) {
         Set<Player> players = new HashSet<>();
 
-        for (int idx = 0; idx < Board.getNumberOfRows(); idx++) {
-            for (int idy = 0; idy < Board.getNumberOfColumns(); idy++) {
+        for (int idx = 0; idx < Board.getDimension(); idx++) {
+            for (int idy = 0; idy < Board.getDimension(); idy++) {
                 Player player = board.getPlayerAtPosition(new PositionOnBoard(idx, idy));
                 if (player != null) {
                     players.add(player);
@@ -54,7 +54,7 @@ public class GameResult {
     }
 
     private void winnerInColumn(Board board, Player player) {
-        for (int idx = 0; idx < Board.getNumberOfRows(); idx++) {
+        for (int idx = 0; idx < Board.getDimension(); idx++) {
             if (doesSequenceBelongToOnePlayer(board.getPlayersAtColumn(idx), player)) {
                 result = Optional.of(player);
             }
@@ -62,7 +62,7 @@ public class GameResult {
     }
 
     private void winnerInRow(Board board, Player player) {
-        for (int idx = 0; idx < Board.getNumberOfColumns(); idx++) {
+        for (int idx = 0; idx < Board.getDimension(); idx++) {
             if (doesSequenceBelongToOnePlayer(board.getPlayersAtRow(idx), player)) {
                 result = Optional.of(player);
             }
@@ -72,7 +72,7 @@ public class GameResult {
     private boolean doesSequenceBelongToOnePlayer(Player[] playersAtRow, Player player) {
         return Arrays.stream(playersAtRow)
                 .filter(field -> field != null && field.equals(player))
-                .count() == Board.getNumberOfColumns();
+                .count() == Board.getDimension();
     }
 
 }
