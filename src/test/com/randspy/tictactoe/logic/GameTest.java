@@ -9,62 +9,52 @@ import static org.junit.Assert.*;
 
 public class GameTest {
 
-    private class StubPlayer implements Player {
+    class SpyInput implements HumanInput {
         @Override
-        public PositionOnBoard nextMove(Board board) {
-            return moves.pop();
+        public int getInput() {
+            return userInputs.pop();
         }
 
-        public LinkedList<PositionOnBoard> moves = new LinkedList<>();
+        public LinkedList<Integer> userInputs = new LinkedList<>();
     }
 
-    private Game game;
-    private StubPlayer stubPlayer;
+    class SpyOutput implements HumanOutput {
+        @Override
+        public void setOutput(String output) {
+            printedOutput.push(output);
+        }
 
+        public LinkedList<String> printedOutput = new LinkedList<>();
+
+    }
+
+    private SpyInput input;
+    private SpyOutput output;
 
     @Before
-    public void setUp() throws Exception {
-        game = new Game();
-        stubPlayer = new StubPlayer();
+    public void setUp() {
+        output = new SpyOutput();
+        input = new SpyInput();
     }
 
     @Test
-    public void whenNoMoveGetEmptyBoard() {
-        assertEquals(new Board(), game.getBoard());
-    }
+    public void onlyHumanGame_toBeChangeInFuture() {
 
-    @Test
-    public void whenOneOfTheFieldsAreOccupiedGameIsNotFinished() {
-
-        int leftUpCorner = 0;
-
-        StubPlayer player = new StubPlayer();
-        player.moves.push(new PositionOnBoard(leftUpCorner, leftUpCorner));
-
-        Board expectedBoard = new Board();
-        expectedBoard.setPlayerAtPosition(player, new PositionOnBoard(leftUpCorner, leftUpCorner));
-
-        game.play(player);
-        assertEquals(expectedBoard, game.getBoard());
-        assertFalse(game.isFinished());
-    }
-
-    @Test
-    public void whenAllTheFieldsAreOccupiedGameIsFinished() {
-
-        StubPlayer player = new StubPlayer();
-
-        Board expectedBoard = new Board();
-
-        for (int idx = 0; idx < Board.getDimension(); idx++) {
-            for (int idy = 0; idy < Board.getDimension(); idy++) {
-                player.moves.push(new PositionOnBoard(idx, idy));
-                expectedBoard.setPlayerAtPosition(player, new PositionOnBoard(idx, idy));
-                game.play(player);
-            }
+        for (int idx = 1; idx <= 9; idx++) {
+            input.userInputs.add(idx);
         }
+        Game game = new Game(input, output);
+        game.run();
 
-        assertEquals(expectedBoard, game.getBoard());
-        assertTrue(game.isFinished());
+        String endResult =
+                "-------\n" +
+                "|x|o|x|\n" +
+                "-------\n" +
+                "|o|x|o|\n" +
+                "-------\n" +
+                "|x|o|x|\n" +
+                "-------\n";
+        String expectedResult = output.printedOutput.getFirst();
+        assertEquals(expectedResult, endResult);
     }
 }
