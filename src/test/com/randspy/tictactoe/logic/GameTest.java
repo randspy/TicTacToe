@@ -52,9 +52,9 @@ public class GameTest {
                 "-------\n" +
                 "|o|x|o|\n" +
                 "-------\n" +
-                "|x|o|x|\n" +
+                "|x| | |\n" +
                 "-------\n";
         String expectedResult = output.printedOutput.getFirst();
-        assertEquals(expectedResult, endResult);
+        assertEquals(endResult, expectedResult);
     }
 }
