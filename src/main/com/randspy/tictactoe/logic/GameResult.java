@@ -1,9 +1,7 @@
 package com.randspy.tictactoe.logic;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 public class GameResult {
     private Optional<Player> result;
@@ -12,7 +10,7 @@ public class GameResult {
 
         init();
 
-        for(Player player : getPlayersPresentOnBoard(board))
+        for(Player player : PlayersOnBoard.get(board))
         {
             winnerInRow(board, player);
             winnerInColumn(board, player);
@@ -25,20 +23,6 @@ public class GameResult {
 
     private void init() {
         result = Optional.ofNullable(null);
-    }
-
-    private Set<Player> getPlayersPresentOnBoard(Board board) {
-        Set<Player> players = new HashSet<>();
-
-        for (int idx = 0; idx < Board.getDimension(); idx++) {
-            for (int idy = 0; idy < Board.getDimension(); idy++) {
-                Player player = board.getPlayerAtPosition(new PositionOnBoard(idx, idy));
-                if (player != null) {
-                    players.add(player);
-                }
-            }
-        }
-        return players;
     }
 
     private void winnerInDiagonalFromRightToLeft(Board board, Player player) {

@@ -16,7 +16,7 @@ public class Game {
 
         GameToBeRemoved gameToBeRemoved = new GameToBeRemoved();
         Player humanPlayer = new HumanPlayer(input);
-        Player computerPlayer = new HumanPlayer(input); //temporary human player
+        Player computerPlayer = new AIPlayer(humanPlayer);
         PlayerToDisplayedCharacterMapping mapping =
                 new PlayerToDisplayedCharacterMapping();
 
@@ -28,6 +28,7 @@ public class Game {
             output.setOutput(new PrintBoard().print(gameToBeRemoved.getBoard(), mapping));
             if (!gameToBeRemoved.isFinished()) {
                 gameToBeRemoved.play(computerPlayer);
+
                 output.setOutput(new PrintBoard().print(gameToBeRemoved.getBoard(), mapping));
             }
         }

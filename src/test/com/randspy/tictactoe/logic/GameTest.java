@@ -30,31 +30,61 @@ public class GameTest {
 
     private SpyInput input;
     private SpyOutput output;
+    private Game game;
 
     @Before
     public void setUp() {
         output = new SpyOutput();
         input = new SpyInput();
+        game = new Game(input, output);
     }
 
     @Test
-    public void onlyHumanGame_toBeChangeInFuture() {
+    public void tie() {
 
-        for (int idx = 1; idx <= 9; idx++) {
-            input.userInputs.add(idx);
-        }
-        Game game = new Game(input, output);
+        input.userInputs.add(5);
+        input.userInputs.add(3);
+        input.userInputs.add(4);
+        input.userInputs.add(2);
+        input.userInputs.add(9);
+
         game.run();
 
         String endResult =
                 "-------\n" +
-                "|x|o|x|\n" +
+                "|o|x|x|\n" +
                 "-------\n" +
-                "|o|x|o|\n" +
+                "|x|x|o|\n" +
                 "-------\n" +
-                "|x| | |\n" +
+                "|o|o|x|\n" +
                 "-------\n";
+
         String expectedResult = output.printedOutput.getFirst();
         assertEquals(endResult, expectedResult);
+
+    }
+
+    @Test
+    public void computerWins() {
+
+        input.userInputs.add(5);
+        input.userInputs.add(4);
+        input.userInputs.add(7);
+        input.userInputs.add(8);
+
+        game.run();
+
+        String endResult =
+                "-------\n" +
+                "|o|o|o|\n" +
+                "-------\n" +
+                "|x|x|o|\n" +
+                "-------\n" +
+                "|x|x| |\n" +
+                "-------\n";
+
+        String expectedResult = output.printedOutput.getFirst();
+        assertEquals(endResult, expectedResult);
+
     }
 }
