@@ -102,4 +102,7 @@ public class Board {
         return positions;
     }
 
+    public boolean isPositionOccupied(PositionOnBoard position) {
+        return boardElements[position.getRow()][position.getColumn()] != null;
+    }
 }

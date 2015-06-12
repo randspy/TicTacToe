@@ -40,7 +40,7 @@ public class GameTest {
     }
 
     @Test
-    public void tie() {
+    public void whenTieInTheEnd() {
 
         input.userInputs.add(5);
         input.userInputs.add(3);
@@ -52,20 +52,21 @@ public class GameTest {
 
         String endResult =
                 "-------\n" +
-                "|o|x|x|\n" +
-                "-------\n" +
-                "|x|x|o|\n" +
-                "-------\n" +
-                "|o|o|x|\n" +
-                "-------\n";
+                        "|o|x|x|\n" +
+                        "-------\n" +
+                        "|x|x|o|\n" +
+                        "-------\n" +
+                        "|o|o|x|\n" +
+                        "-------\n" +
+                        "There was a tie.\n";
 
-        String expectedResult = output.printedOutput.getFirst();
+        String expectedResult = output.printedOutput.get(1) + output.printedOutput.get(0);
         assertEquals(endResult, expectedResult);
 
     }
 
     @Test
-    public void computerWins() {
+    public void whenComputerWins() {
 
         input.userInputs.add(5);
         input.userInputs.add(4);
@@ -76,14 +77,34 @@ public class GameTest {
 
         String endResult =
                 "-------\n" +
-                "|o|o|o|\n" +
-                "-------\n" +
-                "|x|x|o|\n" +
-                "-------\n" +
-                "|x|x| |\n" +
-                "-------\n";
+                        "|o|o|o|\n" +
+                        "-------\n" +
+                        "|x|x|o|\n" +
+                        "-------\n" +
+                        "|x|x| |\n" +
+                        "-------\n" +
+                        "Computer won.\n";
 
-        String expectedResult = output.printedOutput.getFirst();
+        String expectedResult = output.printedOutput.get(1) + output.printedOutput.get(0);
+        assertEquals(endResult, expectedResult);
+
+    }
+
+    @Test
+    public void whenUserTriesToSetAlreadyUsedFieldShouldGetMessageWithWaring() {
+
+        input.userInputs.add(5);
+        input.userInputs.add(1);
+        input.userInputs.add(4);
+        input.userInputs.add(7);
+        input.userInputs.add(8);
+        game.run();
+
+        String endResult = "Already occupied field.\n";
+
+        String expectedResult =
+                output.printedOutput.get(output.printedOutput.size() - 6);
+
         assertEquals(endResult, expectedResult);
 
     }
