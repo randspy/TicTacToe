@@ -1,8 +1,6 @@
 package com.randspy.tictactoe.logic;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Board {
     private static final int DIMENSION = 3;
@@ -104,5 +102,18 @@ public class Board {
 
     public boolean isPositionOccupied(PositionOnBoard position) {
         return boardElements[position.getRow()][position.getColumn()] != null;
+    }
+
+    public Set<Player> getPresentPlayers() {
+
+        Set<Player> players = new HashSet<>();
+
+        for(Player[] row : boardElements) {
+            for (Player elem : row) {
+                players.add(elem);
+            }
+        }
+
+        return players;
     }
 }

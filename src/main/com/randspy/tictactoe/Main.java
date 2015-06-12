@@ -2,7 +2,7 @@ package com.randspy.tictactoe;
 
 import com.randspy.tictactoe.console.ConsoleInput;
 import com.randspy.tictactoe.console.ConsoleOutput;
-import com.randspy.tictactoe.logic.Game;
+import com.randspy.tictactoe.console.Game;
 
 public class Main {
 

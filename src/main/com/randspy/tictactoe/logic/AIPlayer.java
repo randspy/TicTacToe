@@ -1,19 +1,30 @@
 package com.randspy.tictactoe.logic;
 
 import java.util.List;
+import java.util.Set;
 
 public class AIPlayer implements Player {
-    private Player humanPlayer;
-
-    public AIPlayer(Player humanPlayer) {
-        this.humanPlayer = humanPlayer;
-    }
+    private Player opponent;
 
     @Override
     public PositionOnBoard nextMove(Board board) {
 
+        opponent = getOpponent(board);
         int[] result = minMax(board, this, 10);
         return new PositionOnBoard(result[1], result[2]);
+    }
+
+    private Player getOpponent(Board board) {
+        Set<Player> players = board.getPresentPlayers();
+        Player opponent = null;
+
+        for (Player player : players) {
+            if (player != this) {
+                opponent = player;
+            }
+        }
+
+        return opponent == null ? new AIPlayer() : opponent;
     }
 
     private int[] minMax(Board board, Player player, int depth) {
@@ -33,7 +44,7 @@ public class AIPlayer implements Player {
         for (PositionOnBoard position : availableMoves) {
             board.setPlayerAtPosition(player, position);
             if (player == this) {
-                currentScore = minMax(board, humanPlayer, depth - 1)[0];
+                currentScore = minMax(board, opponent, depth - 1)[0];
                 if (currentScore > bestScore) {
 
                     bestScore = currentScore;

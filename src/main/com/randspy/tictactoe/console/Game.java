@@ -1,13 +1,12 @@
-package com.randspy.tictactoe.logic;
+package com.randspy.tictactoe.console;
 
-import com.randspy.tictactoe.console.PlayerToDisplayedCharacterMapping;
-import com.randspy.tictactoe.console.PrintBoard;
+import com.randspy.tictactoe.logic.*;
 
 import java.util.Optional;
 
 public class Game {
     private HumanInput input;
-    private HumanOutput output;
+    private DisplayInConsole console;
 
     private Board board;
     private GameResult result;
@@ -17,32 +16,32 @@ public class Game {
 
     public Game(HumanInput input, HumanOutput output) {
         this.input = input;
-        this.output = output;
+        this.console = new DisplayInConsole(output);
     }
 
     public void run() {
 
         init();
 
-        printBoard();
+        console.printBoard(board, mapping);
 
         while (isNotFinished()) {
 
-            printInstruction();
+            console.printInstruction();
             PositionOnBoard humanPlayerMove = humanPlayer.nextMove(board);
 
             if (isInvalidMove(humanPlayerMove)) {
-                printThatFieldIsOccupied();
+                console.printThatFieldIsOccupied();
                 continue;
             }
 
             humanMakesMove(humanPlayerMove);
 
-            printBoard();
+            console.printBoard(board, mapping);
 
             if (isNotFinished()) {
                 computerMakesMove();
-                printBoard();
+                console.printBoard(board, mapping);
             }
         }
 
@@ -62,15 +61,11 @@ public class Game {
         board.setPlayerAtPosition(humanPlayer, humanPlayerMove);
     }
 
-    private void printBoard() {
-        output.setOutput(new PrintBoard().print(board, mapping));
-    }
-
     private void init() {
         board = new Board();
         result = new GameResult();
         humanPlayer = new HumanPlayer(input);
-        computerPlayer = new AIPlayer(humanPlayer);
+        computerPlayer = new AIPlayer();
 
         mapping = new PlayerToDisplayedCharacterMapping();
         mapping.map(humanPlayer, "x");
@@ -81,27 +76,11 @@ public class Game {
     private void gameFinalResult(Player computerPlayer) {
         Optional<Player> winner = result.winnerIs(board);
         if (!winner.isPresent()) {
-            printTie();
+            console.printTie();
         }
         else if(winner.get().equals(computerPlayer)){
-            printComputerWon();
+            console.printComputerWon();
         }
-    }
-
-    private void printThatFieldIsOccupied() {
-        output.setOutput("Already occupied field.\n");
-    }
-
-    private void printComputerWon() {
-        output.setOutput("Computer won.\n");
-    }
-
-    private void printTie() {
-        output.setOutput("There was a tie.\n");
-    }
-
-    private void printInstruction() {
-        output.setOutput("Make move (from 1-9) : ");
     }
 
     public boolean isNotFinished() {

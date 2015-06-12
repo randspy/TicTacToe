@@ -1,11 +1,13 @@
-package com.randspy.tictactoe.logic;
+package com.randspy.tictactoe.console;
 
+import com.randspy.tictactoe.logic.HumanInput;
+import com.randspy.tictactoe.logic.HumanOutput;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.LinkedList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class GameTest {
 
