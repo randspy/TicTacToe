@@ -16,14 +16,16 @@ public class ComputerPlayer implements Player {
     @Override
     public PositionOnBoard nextMove(Board board) {
 
-        this.board = board;
-
-        opponent = getOpponent();
+        init(board);
 
         int initialDepth = 9;
-
         MinMaxResult result = minMax(this, initialDepth);
         return new PositionOnBoard(result.row, result.column);
+    }
+
+    private void init(Board board) {
+        this.board = board;
+        opponent = getOpponent();
     }
 
     private Player getOpponent() {
@@ -91,9 +93,9 @@ public class ComputerPlayer implements Player {
     }
 
     private MinMaxResult max(int depth, MinMaxResult result, PositionOnBoard possibleMove) {
-        int currentScore = minMax(opponent, depth - 1).score;
-        if (currentScore > result.score) {
-            result.score = currentScore;
+        int score = minMax(opponent, depth - 1).score;
+        if (score > result.score) {
+            result.score = score;
             result.row = possibleMove.getRow();
             result.column = possibleMove.getColumn();
 
@@ -102,9 +104,9 @@ public class ComputerPlayer implements Player {
     }
 
     private MinMaxResult min(int depth, MinMaxResult result, PositionOnBoard possibleMove) {
-        int currentScore = minMax(this, depth - 1).score;
-        if (currentScore < result.score) {
-            result.score = currentScore;
+        int score = minMax(this, depth - 1).score;
+        if (score < result.score) {
+            result.score = score;
             result.row = possibleMove.getRow();
             result.column = possibleMove.getColumn();
         }
