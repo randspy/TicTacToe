@@ -11,8 +11,8 @@ public class HumanPlayer implements Player {
     public PositionOnBoard nextMove(Board board) {
         int boardStartingPosition = 1;
         int userInput = input.getInput() - boardStartingPosition;
-        int row =  userInput / 3;
-        int column = userInput % 3;
+        int row =  userInput / Board.getDimension();
+        int column = userInput % Board.getDimension();
         return new PositionOnBoard(row, column);
     }
 }

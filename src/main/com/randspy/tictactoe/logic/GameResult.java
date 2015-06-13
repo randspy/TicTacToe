@@ -10,7 +10,7 @@ public class GameResult {
 
         init();
 
-        for(Player player : PlayersOnBoard.get(board))
+        for(Player player : board.getPresentPlayers())
         {
             winnerInRow(board, player);
             winnerInColumn(board, player);

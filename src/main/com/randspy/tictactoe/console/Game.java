@@ -54,6 +54,22 @@ public class Game {
 
     }
 
+    private void init() {
+        board = new Board();
+        result = new GameResult();
+        humanPlayer = new HumanPlayer(input);
+        computerPlayer = new AIPlayer();
+
+        mapping = new PlayerToDisplayedCharacterMapping();
+        mapping.map(humanPlayer, "x");
+        mapping.map(computerPlayer, "o");
+
+    }
+
+    public boolean isNotFinished() {
+        return !(board.isFull() || result.winnerIs(board).isPresent());
+    }
+
     private boolean isInvalidMove(PositionOnBoard humanPlayerMove) {
 
         boolean isBellowRange = humanPlayerMove.getRow() < 0 ||
@@ -69,24 +85,12 @@ public class Game {
         return board.isPositionOccupied(humanPlayerMove);
     }
 
-    private void computerMakesMove() {
-        board.setPlayerAtPosition(computerPlayer, computerPlayer.nextMove(board));
-    }
-
     private void humanMakesMove(PositionOnBoard humanPlayerMove) {
         board.setPlayerAtPosition(humanPlayer, humanPlayerMove);
     }
 
-    private void init() {
-        board = new Board();
-        result = new GameResult();
-        humanPlayer = new HumanPlayer(input);
-        computerPlayer = new AIPlayer();
-
-        mapping = new PlayerToDisplayedCharacterMapping();
-        mapping.map(humanPlayer, "x");
-        mapping.map(computerPlayer, "o");
-
+    private void computerMakesMove() {
+        board.setPlayerAtPosition(computerPlayer, computerPlayer.nextMove(board));
     }
 
     private void gameFinalResult(Player computerPlayer) {
@@ -97,10 +101,6 @@ public class Game {
         else if(winner.get().equals(computerPlayer)){
             console.printComputerWon();
         }
-    }
-
-    public boolean isNotFinished() {
-        return !(board.isFull() || result.winnerIs(board).isPresent());
     }
 
 }

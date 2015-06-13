@@ -1,20 +1,28 @@
 package com.randspy.tictactoe.logic;
 
-import java.util.List;
 import java.util.Set;
 
 public class AIPlayer implements Player {
     private Player opponent;
+    private GameResult gameResult = new GameResult();
+    private Board board;
+
+    private class MinMaxResult{
+        int score = 0;
+        int row = -1;
+        int column = -1;
+    }
 
     @Override
     public PositionOnBoard nextMove(Board board) {
 
-        opponent = getOpponent(board);
-        int[] result = minMax(board, this, 10);
-        return new PositionOnBoard(result[1], result[2]);
+        this.board = board;
+        opponent = getOpponent();
+        MinMaxResult result = minMax(this, 9);
+        return new PositionOnBoard(result.row, result.column);
     }
 
-    private Player getOpponent(Board board) {
+    private Player getOpponent() {
         Set<Player> players = board.getPresentPlayers();
         Player opponent = null;
 
@@ -27,55 +35,75 @@ public class AIPlayer implements Player {
         return opponent == null ? new AIPlayer() : opponent;
     }
 
-    private int[] minMax(Board board, Player player, int depth) {
+    private MinMaxResult minMax(Player player, int depth) {
 
-        GameResult gameResult = new GameResult();
-        if (board.isFull() || gameResult.winnerIs(board).isPresent() || depth == 0) {
-            return new int[] {score(board, depth), 2, 2};
+        MinMaxResult result = new MinMaxResult();
+        if (noMoreMovesPossible(depth)) {
+            result.score = score(depth);
+            return result;
         }
 
-        List<PositionOnBoard> availableMoves = board.getEmptyFields();
-        int bestScore = (player == this) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-        int currentScore = 0;
+        result.score = getStartingBestScore(player);
 
-        int bestRow = -1;
-        int bestCol = -1;
-
-        for (PositionOnBoard position : availableMoves) {
-            board.setPlayerAtPosition(player, position);
+        for (PositionOnBoard possibleMove : board.getEmptyFields()) {
+            setMove(player, possibleMove);
             if (player == this) {
-                currentScore = minMax(board, opponent, depth - 1)[0];
-                if (currentScore > bestScore) {
-
-                    bestScore = currentScore;
-                    bestRow = position.getRow();
-                    bestCol = position.getColumn();
-
-                }
+                result = max(depth, result, possibleMove);
             }
             else
             {
-                currentScore = minMax(board, this, depth - 1)[0];
-                if (currentScore < bestScore) {
-                    bestScore = currentScore;
-                    bestRow = position.getRow();
-                    bestCol = position.getColumn();
-                }
+                result = min(depth, result, possibleMove);
             }
-            board.setPlayerAtPosition(null, position);
+            rollBackMove(possibleMove);
         }
 
-        return new int[] {bestScore, bestRow, bestCol};
+        return result;
     }
 
-    private int score(Board board, int depth) {
-        GameResult gameResult = new GameResult();
+    private boolean noMoreMovesPossible(int depth) {
+        return board.isFull() || gameResult.winnerIs(board).isPresent() || depth == 0;
+    }
+
+    private int score(int depth) {
         if (!gameResult.winnerIs(board).isPresent()) {
             return 0;
         } else if (gameResult.winnerIs(board).get() == this) {
-            return 10 * depth;
+            return depth + 1;
         } else {
-            return -10 * depth;
+            return -depth - 1;
         }
+    }
+
+    private int getStartingBestScore(Player player) {
+        return (player == this) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+    }
+
+    private void setMove(Player player, PositionOnBoard possibleMove) {
+        board.setPlayerAtPosition(player, possibleMove);
+    }
+
+    private void rollBackMove(PositionOnBoard possibleMove) {
+        board.setPlayerAtPosition(null, possibleMove);
+    }
+
+    private MinMaxResult max(int depth, MinMaxResult result, PositionOnBoard possibleMove) {
+        int currentScore = minMax(opponent, depth - 1).score;
+        if (currentScore > result.score) {
+            result.score = currentScore;
+            result.row = possibleMove.getRow();
+            result.column = possibleMove.getColumn();
+
+        }
+        return  result;
+    }
+
+    private MinMaxResult min(int depth, MinMaxResult result, PositionOnBoard possibleMove) {
+        int currentScore = minMax(this, depth - 1).score;
+        if (currentScore < result.score) {
+            result.score = currentScore;
+            result.row = possibleMove.getRow();
+            result.column = possibleMove.getColumn();
+        }
+        return  result;
     }
 }
