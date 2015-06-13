@@ -3,15 +3,15 @@ package com.randspy.tictactoe.console;
 import com.randspy.tictactoe.logic.Board;
 import com.randspy.tictactoe.logic.HumanOutput;
 
-public class DisplayInConsole {
+public class ConsoleDisplay {
 
     private HumanOutput output;
 
-    public DisplayInConsole(HumanOutput output) {
+    public ConsoleDisplay(HumanOutput output) {
         this.output = output;
     }
 
-    public void printThatFieldIsOccupied() {
+    public void printFieldIsOccupied() {
         output.setOutput("Already occupied field.\n");
     }
 
@@ -23,11 +23,15 @@ public class DisplayInConsole {
         output.setOutput("There was a tie.\n");
     }
 
-    public void printInstruction() {
+    public void printInstructions() {
         output.setOutput("Make move (from 1-9) : ");
     }
 
     public void printBoard(Board board, PlayerToDisplayedCharacterMapping mapping) {
         output.setOutput(new PrintBoard().print(board, mapping));
+    }
+
+    public void printInvalidMove() {
+        output.setOutput("Illegal input.\n");
     }
 }

@@ -6,6 +6,10 @@ public class ConsoleInput implements HumanInput {
 
     @Override
     public int getInput() {
-        return new Integer(System.console().readLine());
+        try {
+            return new Integer(System.console().readLine());
+        } catch (java.lang.NumberFormatException e) {
+            return new Integer(0);
+        }
     }
 }

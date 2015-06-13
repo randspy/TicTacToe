@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public class Game {
     private HumanInput input;
-    private DisplayInConsole console;
+    private ConsoleDisplay console;
 
     private Board board;
     private GameResult result;
@@ -16,7 +16,7 @@ public class Game {
 
     public Game(HumanInput input, HumanOutput output) {
         this.input = input;
-        this.console = new DisplayInConsole(output);
+        this.console = new ConsoleDisplay(output);
     }
 
     public void run() {
@@ -27,11 +27,16 @@ public class Game {
 
         while (isNotFinished()) {
 
-            console.printInstruction();
+            console.printInstructions();
             PositionOnBoard humanPlayerMove = humanPlayer.nextMove(board);
 
             if (isInvalidMove(humanPlayerMove)) {
-                console.printThatFieldIsOccupied();
+                console.printInvalidMove();
+                continue;
+            }
+
+            if (isAlreadyOccupiedPosition(humanPlayerMove)) {
+                console.printFieldIsOccupied();
                 continue;
             }
 
@@ -50,6 +55,17 @@ public class Game {
     }
 
     private boolean isInvalidMove(PositionOnBoard humanPlayerMove) {
+
+        boolean isBellowRange = humanPlayerMove.getRow() < 0 ||
+                                humanPlayerMove.getColumn() < 0;
+
+        boolean isAboveRange =  humanPlayerMove.getRow() >= Board.getDimension() ||
+                                humanPlayerMove.getColumn() >= Board.getDimension();
+
+        return isBellowRange || isAboveRange;
+    }
+
+    private boolean isAlreadyOccupiedPosition(PositionOnBoard humanPlayerMove) {
         return board.isPositionOccupied(humanPlayerMove);
     }
 

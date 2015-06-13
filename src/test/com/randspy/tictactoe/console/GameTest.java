@@ -34,6 +34,12 @@ public class GameTest {
     private SpyOutput output;
     private Game game;
 
+    private void setUserInputs(Integer... numbers) {
+        for (Integer number : numbers) {
+            input.userInputs.add(number);
+        }
+    }
+
     @Before
     public void setUp() {
         output = new SpyOutput();
@@ -44,12 +50,7 @@ public class GameTest {
     @Test
     public void whenTieInTheEnd() {
 
-        input.userInputs.add(5);
-        input.userInputs.add(3);
-        input.userInputs.add(4);
-        input.userInputs.add(2);
-        input.userInputs.add(9);
-
+        setUserInputs(5, 3, 4, 2, 9);
         game.run();
 
         String endResult =
@@ -70,10 +71,8 @@ public class GameTest {
     @Test
     public void whenComputerWins() {
 
-        input.userInputs.add(5);
-        input.userInputs.add(4);
-        input.userInputs.add(7);
-        input.userInputs.add(8);
+        setUserInputs(5, 4, 7, 8);
+
 
         game.run();
 
@@ -95,11 +94,7 @@ public class GameTest {
     @Test
     public void whenUserTriesToSetAlreadyUsedFieldShouldGetMessageWithWaring() {
 
-        input.userInputs.add(5);
-        input.userInputs.add(1);
-        input.userInputs.add(4);
-        input.userInputs.add(7);
-        input.userInputs.add(8);
+        setUserInputs(5, 1, 4, 7, 8);
         game.run();
 
         String endResult = "Already occupied field.\n";
@@ -110,4 +105,37 @@ public class GameTest {
         assertEquals(endResult, expectedResult);
 
     }
+
+
+    @Test
+    public void whenUserTriesToSetNumberBelowRangeShouldGetMessageWithWaring() {
+
+        setUserInputs(0, 5, 4, 7, 8);
+        game.run();
+
+        String endResult = "Illegal input.\n";
+
+        String expectedResult =
+                output.printedOutput.get(output.printedOutput.size() - 3);
+
+        assertEquals(endResult, expectedResult);
+
+    }
+
+    @Test
+    public void whenUserTriesToSetNumberAboveRangeShouldGetMessageWithWaring() {
+
+        setUserInputs(10, 5, 4, 7, 8);
+
+        game.run();
+
+        String endResult = "Illegal input.\n";
+
+        String expectedResult =
+                output.printedOutput.get(output.printedOutput.size() - 3);
+
+        assertEquals(endResult, expectedResult);
+
+    }
+
 }
