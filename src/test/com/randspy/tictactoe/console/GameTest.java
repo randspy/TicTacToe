@@ -55,13 +55,13 @@ public class GameTest {
 
         String endResult =
                 "-------\n" +
-                        "|o|x|x|\n" +
-                        "-------\n" +
-                        "|x|x|o|\n" +
-                        "-------\n" +
-                        "|o|o|x|\n" +
-                        "-------\n" +
-                        "There was a tie.\n";
+                "|o|x|x|\n" +
+                "-------\n" +
+                "|x|x|o|\n" +
+                "-------\n" +
+                "|o|o|x|\n" +
+                "-------\n" +
+                "There was a tie.\n";
 
         String expectedResult = output.printedOutput.get(1) + output.printedOutput.get(0);
         assertEquals(endResult, expectedResult);
@@ -78,13 +78,13 @@ public class GameTest {
 
         String endResult =
                 "-------\n" +
-                        "|o|o|o|\n" +
-                        "-------\n" +
-                        "|x|x|o|\n" +
-                        "-------\n" +
-                        "|x|x| |\n" +
-                        "-------\n" +
-                        "Computer won.\n";
+                "|o|o|o|\n" +
+                "-------\n" +
+                "|x|x|o|\n" +
+                "-------\n" +
+                "|x|x| |\n" +
+                "-------\n" +
+                "Computer won.\n";
 
         String expectedResult = output.printedOutput.get(1) + output.printedOutput.get(0);
         assertEquals(endResult, expectedResult);

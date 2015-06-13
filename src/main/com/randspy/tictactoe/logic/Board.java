@@ -6,13 +6,8 @@ public class Board {
     private static final int DIMENSION = 3;
 
     private Player[][] boardElements = new Player[DIMENSION][DIMENSION];
-
-    public static int getNumberOfBoardFields() {
-        return DIMENSION * DIMENSION;
-    }
-
-    public static int getDimension() {
-        return DIMENSION;
+    public int getDimension() {
+        return boardElements.length;
     }
 
     public void setPlayerAtPosition(Player player, PositionOnBoard position) {
@@ -45,19 +40,19 @@ public class Board {
     }
 
     public Player[] getPlayersAtDiagonalFromLeftToRight() {
-        Player [] diagonal = new Player[DIMENSION];
+        Player [] diagonal = new Player[boardElements.length];
 
-        for (int idx = 0; idx < DIMENSION; idx++) {
+        for (int idx = 0; idx < boardElements.length; idx++) {
             diagonal[idx] = boardElements[idx][idx];
         }
         return diagonal;
     }
 
     public Player[] getPlayersAtDiagonalFromRightToLeft() {
-        Player [] diagonal = new Player[DIMENSION];
+        Player [] diagonal = new Player[boardElements.length];
 
-        int idy = DIMENSION - 1;
-        for (int idx = 0; idx < DIMENSION; idx++, idy--) {
+        int idy = boardElements.length - 1;
+        for (int idx = 0; idx < boardElements.length; idx++, idy--) {
             diagonal[idx] = boardElements[idx][idy];
         }
         return diagonal;

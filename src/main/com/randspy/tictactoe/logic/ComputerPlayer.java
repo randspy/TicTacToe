@@ -2,7 +2,7 @@ package com.randspy.tictactoe.logic;
 
 import java.util.Set;
 
-public class AIPlayer implements Player {
+public class ComputerPlayer implements Player {
     private Player opponent;
     private GameResult gameResult = new GameResult();
     private Board board;
@@ -17,8 +17,12 @@ public class AIPlayer implements Player {
     public PositionOnBoard nextMove(Board board) {
 
         this.board = board;
+
         opponent = getOpponent();
-        MinMaxResult result = minMax(this, 9);
+
+        int initialDepth = 9;
+
+        MinMaxResult result = minMax(this, initialDepth);
         return new PositionOnBoard(result.row, result.column);
     }
 
@@ -32,7 +36,7 @@ public class AIPlayer implements Player {
             }
         }
 
-        return opponent == null ? new AIPlayer() : opponent;
+        return opponent == null ? new ComputerPlayer() : opponent;
     }
 
     private MinMaxResult minMax(Player player, int depth) {

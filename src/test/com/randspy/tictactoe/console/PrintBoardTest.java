@@ -12,7 +12,7 @@ public class PrintBoardTest {
 
     @Test
     public void printCleanBoard() {
-        String printedConsole =
+        String expectedConsoleOutput =
                 "-------\n" +
                 "| | | |\n" +
                 "-------\n" +
@@ -24,13 +24,13 @@ public class PrintBoardTest {
         Board board = new Board();
         PrintBoard printBoard = new PrintBoard();
 
-        assertEquals(printedConsole,
+        assertEquals(expectedConsoleOutput,
                 printBoard.print(board, new PlayerToDisplayedCharacterMapping()));
     }
 
     @Test
     public void printFilledBoard() {
-        String printedConsole =
+        String expectedConsoleOutput =
                 "-------\n" +
                 "|x|o|x|\n" +
                 "-------\n" +
@@ -49,14 +49,15 @@ public class PrintBoardTest {
         mapping.map(oPlayer, "o");
 
         Board board = new Board();
-        for (int idx = 0; idx < Board.getNumberOfBoardFields(); idx++) {
+        int numberOfFields = board.getDimension() * board.getDimension();
+        for (int idx = 0; idx < numberOfFields; idx++) {
 
             boolean isEven = idx % 2 == 0;
-            int row = idx / Board.getDimension();
-            int column = idx % Board.getDimension();
+            int row = idx / board.getDimension();
+            int column = idx % board.getDimension();
             board.setPlayerAtPosition(isEven ? xPlayer : oPlayer, new PositionOnBoard(row, column));
         }
 
-        assertEquals(printedConsole, new PrintBoard().print(board, mapping));
+        assertEquals(expectedConsoleOutput, new PrintBoard().print(board, mapping));
     }
 }

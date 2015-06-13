@@ -36,7 +36,7 @@ public class PrintBoard {
         final String rowSeparator = "|";
         String printedRow = rowSeparator;
 
-        for (int idx = 0; idx < Board.getDimension(); idx++) {
+        for (int idx = 0; idx < board.getDimension(); idx++) {
             Optional<String> playersCharacter =
                     mapping.getCharacter(board.getPlayerAtPosition(new PositionOnBoard(row, idx)));
 
