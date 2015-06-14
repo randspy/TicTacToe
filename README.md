@@ -14,6 +14,8 @@ or
     gradle jar
     java -jar build/libs/tictactoe-0.0.1.jar
 
+Java 8 is required.
+
 ## License
 
 Copyright (C) 2015 Przemyslaw Koziel
