@@ -64,7 +64,8 @@ public class GameTest {
                 "There was a tie.\n";
 
         String expectedResult = output.printedOutput.get(1) + output.printedOutput.get(0);
-        assertEquals(endResult, expectedResult);
+        assertEquals(expectedResult, endResult);
+        assertEquals(expectedResult, endResult);
 
     }
 
@@ -87,7 +88,7 @@ public class GameTest {
                 "Computer won.\n";
 
         String expectedResult = output.printedOutput.get(1) + output.printedOutput.get(0);
-        assertEquals(endResult, expectedResult);
+        assertEquals(expectedResult, endResult);
 
     }
 
@@ -102,7 +103,7 @@ public class GameTest {
         String expectedResult =
                 output.printedOutput.get(output.printedOutput.size() - 6);
 
-        assertEquals(endResult, expectedResult);
+        assertEquals(expectedResult, endResult);
 
     }
 
@@ -118,7 +119,7 @@ public class GameTest {
         String expectedResult =
                 output.printedOutput.get(output.printedOutput.size() - 3);
 
-        assertEquals(endResult, expectedResult);
+        assertEquals(expectedResult, endResult);
 
     }
 
@@ -134,7 +135,7 @@ public class GameTest {
         String expectedResult =
                 output.printedOutput.get(output.printedOutput.size() - 3);
 
-        assertEquals(endResult, expectedResult);
+        assertEquals(expectedResult, endResult);
 
     }
 
