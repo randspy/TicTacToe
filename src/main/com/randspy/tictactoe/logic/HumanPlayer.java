@@ -1,9 +1,11 @@
 package com.randspy.tictactoe.logic;
 
-public class HumanPlayer implements Player {
-    private final HumanInput input;
+import com.randspy.tictactoe.console.ConsoleInput;
 
-    public HumanPlayer(HumanInput input) {
+public class HumanPlayer implements Player {
+    private final ConsoleInput input;
+
+    public HumanPlayer(ConsoleInput input) {
         this.input = input;
     }
 

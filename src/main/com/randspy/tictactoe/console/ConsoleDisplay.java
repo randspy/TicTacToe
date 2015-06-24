@@ -1,13 +1,12 @@
 package com.randspy.tictactoe.console;
 
 import com.randspy.tictactoe.logic.Board;
-import com.randspy.tictactoe.logic.HumanOutput;
 
 public class ConsoleDisplay {
 
-    private HumanOutput output;
+    private ConsoleOutput output;
 
-    public ConsoleDisplay(HumanOutput output) {
+    public ConsoleDisplay(ConsoleOutput output) {
         this.output = output;
     }
 

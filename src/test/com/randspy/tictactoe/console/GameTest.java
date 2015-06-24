@@ -1,7 +1,5 @@
 package com.randspy.tictactoe.console;
 
-import com.randspy.tictactoe.logic.HumanInput;
-import com.randspy.tictactoe.logic.HumanOutput;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class GameTest {
 
-    class SpyInput implements HumanInput {
+    class SpyInput extends ConsoleInput {
         @Override
         public int getInput() {
             return userInputs.pop();
@@ -20,7 +18,7 @@ public class GameTest {
         public LinkedList<Integer> userInputs = new LinkedList<>();
     }
 
-    class SpyOutput implements HumanOutput {
+    class SpyOutput extends ConsoleOutput {
         @Override
         public void setOutput(String output) {
             printedOutput.push(output);

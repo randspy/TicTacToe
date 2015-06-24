@@ -5,7 +5,7 @@ import com.randspy.tictactoe.logic.*;
 import java.util.Optional;
 
 public class Game {
-    private HumanInput input;
+    private ConsoleInput input;
     private ConsoleDisplay console;
 
     private Board board;
@@ -15,7 +15,7 @@ public class Game {
     private PlayerToDisplayedCharacterMapping mapping;
     private boolean isHumanPlayerTurn;
 
-    public Game(HumanInput input, HumanOutput output) {
+    public Game(ConsoleInput input, ConsoleOutput output) {
         this.input = input;
         this.console = new ConsoleDisplay(output);
     }
