@@ -24,7 +24,7 @@ public class Game {
 
         init();
 
-        console.printBoard(board, mapping);
+        printBoard();
 
         while (isNotFinished()) {
             if (isHumanPlayerTurn) {
@@ -53,6 +53,11 @@ public class Game {
         switchToHumanPlayer();
     }
 
+    private void printBoard() {
+
+        console.printBoard(board, mapping);
+    }
+
     private void humanTurn() {
 
         console.printInstructions();
@@ -68,14 +73,14 @@ public class Game {
         else{
             humanMakesMove(humanPlayerMove);
             switchToComputerPlayer();
-            console.printBoard(board, mapping);
+            printBoard();
         }
     }
 
     private void computerTurn() {
         computerMakesMove();
         switchToHumanPlayer();
-        console.printBoard(board, mapping);
+        printBoard();
     }
 
     private void switchToComputerPlayer() {

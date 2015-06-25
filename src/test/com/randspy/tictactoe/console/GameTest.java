@@ -1,32 +1,13 @@
 package com.randspy.tictactoe.console;
 
+import com.randspy.tictactoe.spies.SpyInput;
+import com.randspy.tictactoe.spies.SpyOutput;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.LinkedList;
 
 import static org.junit.Assert.assertEquals;
 
 public class GameTest {
-
-    class SpyInput extends ConsoleInput {
-        @Override
-        public int getInput() {
-            return userInputs.pop();
-        }
-
-        public LinkedList<Integer> userInputs = new LinkedList<>();
-    }
-
-    class SpyOutput extends ConsoleOutput {
-        @Override
-        public void setOutput(String output) {
-            printedOutput.push(output);
-        }
-
-        public LinkedList<String> printedOutput = new LinkedList<>();
-
-    }
 
     private SpyInput input;
     private SpyOutput output;
