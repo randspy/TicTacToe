@@ -6,9 +6,9 @@ import java.util.LinkedList;
 
 public class SpyInput extends ConsoleInput {
     @Override
-    public int getInput() {
+    public String getInput() {
         return userInputs.pop();
     }
 
-    public LinkedList<Integer> userInputs = new LinkedList<>();
+    public LinkedList<String> userInputs = new LinkedList<>();
 }

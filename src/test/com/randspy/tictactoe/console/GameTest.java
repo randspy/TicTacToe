@@ -13,8 +13,8 @@ public class GameTest {
     private SpyOutput output;
     private Game game;
 
-    private void setUserInputs(Integer... numbers) {
-        for (Integer number : numbers) {
+    private void setUserInputs(String ... numbers) {
+        for (String number : numbers) {
             input.userInputs.add(number);
         }
     }
@@ -29,7 +29,7 @@ public class GameTest {
     @Test
     public void whenTieInTheEnd() {
 
-        setUserInputs(5, 3, 4, 2, 9);
+        setUserInputs("5", "3", "4", "2", "9");
         game.run();
 
         String endResult =
@@ -51,7 +51,7 @@ public class GameTest {
     @Test
     public void whenComputerWins() {
 
-        setUserInputs(5, 4, 7, 8);
+        setUserInputs("5", "4", "7", "8");
 
 
         game.run();
@@ -74,7 +74,7 @@ public class GameTest {
     @Test
     public void whenUserTriesToSetAlreadyUsedFieldShouldGetMessageWithWaring() {
 
-        setUserInputs(5, 1, 4, 7, 8);
+        setUserInputs("5", "1", "4", "7", "8");
         game.run();
 
         String endResult = "Already occupied field.\n";
@@ -90,7 +90,7 @@ public class GameTest {
     @Test
     public void whenUserTriesToSetNumberBelowRangeShouldGetMessageWithWaring() {
 
-        setUserInputs(0, 5, 4, 7, 8);
+        setUserInputs("0", "5", "4", "7", "8");
         game.run();
 
         String endResult = "Illegal input.\n";
@@ -105,7 +105,7 @@ public class GameTest {
     @Test
     public void whenUserTriesToSetNumberAboveRangeShouldGetMessageWithWaring() {
 
-        setUserInputs(10, 5, 4, 7, 8);
+        setUserInputs("10", "5", "4", "7", "8");
 
         game.run();
 
