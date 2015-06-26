@@ -1,19 +1,19 @@
 package com.randspy.tictactoe.console;
 
-import com.randspy.tictactoe.logic.Player;
+import com.randspy.tictactoe.logic.PlayerId;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class PlayerToDisplayedCharacterMapping {
-    Map<Player, String> mapping = new HashMap<>();
+    Map<PlayerId, String> mapping = new HashMap<>();
 
-    public void map(Player player, String character) {
-        mapping.put(player, character);
+    public void map(PlayerId playerId, String character) {
+        mapping.put(playerId, character);
     }
 
-    public Optional<String> getCharacter(Player player) {
+    public Optional<String> getCharacter(PlayerId player) {
         String character = mapping.get(player);
         return character == null ? Optional.ofNullable(null) : Optional.ofNullable(character);
     }

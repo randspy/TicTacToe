@@ -5,19 +5,19 @@ import java.util.*;
 public class Board {
     private static final int DIMENSION = 3;
 
-    private Player[][] boardElements = new Player[DIMENSION][DIMENSION];
+    private PlayerId[][] boardElements = new PlayerId[DIMENSION][DIMENSION];
     public int getDimension() {
         return boardElements.length;
     }
 
-    public void setPlayerAtPosition(Player player, PositionOnBoard position) {
-        boardElements[position.getRow()][position.getColumn()] = player;
+    public void setPlayerAtPosition(PlayerId playerId, PositionOnBoard position) {
+        boardElements[position.getRow()][position.getColumn()] = playerId;
     }
 
     public boolean isFull() {
 
-        for(Player[] row : boardElements) {
-            for (Player elem : row) {
+        for(PlayerId[] row : boardElements) {
+            for (PlayerId elem : row) {
                 if (elem == null) {
                     return false;
                 }
@@ -26,21 +26,21 @@ public class Board {
         return true;
     }
 
-    public Player getPlayerAtPosition(PositionOnBoard position) {
+    public PlayerId getPlayerAtPosition(PositionOnBoard position) {
         return boardElements[position.getRow()][position.getColumn()];
     }
 
-    public Player[] getPlayersAtRow(int idx) {
+    public PlayerId[] getPlayersAtRow(int idx) {
         return boardElements[idx];
     }
 
-    public Player[] getPlayersAtColumn(int idx) {
+    public PlayerId[] getPlayersAtColumn(int idx) {
 
-        return Arrays.stream(boardElements).map(row -> row[idx]).toArray(Player[]::new);
+        return Arrays.stream(boardElements).map(row -> row[idx]).toArray(PlayerId[]::new);
     }
 
-    public Player[] getPlayersAtDiagonalFromLeftToRight() {
-        Player [] diagonal = new Player[boardElements.length];
+    public PlayerId[] getPlayersAtDiagonalFromLeftToRight() {
+        PlayerId [] diagonal = new PlayerId[boardElements.length];
 
         for (int idx = 0; idx < boardElements.length; idx++) {
             diagonal[idx] = boardElements[idx][idx];
@@ -48,8 +48,8 @@ public class Board {
         return diagonal;
     }
 
-    public Player[] getPlayersAtDiagonalFromRightToLeft() {
-        Player [] diagonal = new Player[boardElements.length];
+    public PlayerId[] getPlayersAtDiagonalFromRightToLeft() {
+        PlayerId [] diagonal = new PlayerId[boardElements.length];
 
         int idy = boardElements.length - 1;
         for (int idx = 0; idx < boardElements.length; idx++, idy--) {
@@ -76,12 +76,12 @@ public class Board {
         return boardElements[position.getRow()][position.getColumn()] != null;
     }
 
-    public Set<Player> getPresentPlayers() {
+    public Set<PlayerId> getPresentPlayers() {
 
-        Set<Player> players = new HashSet<>();
+        Set<PlayerId> players = new HashSet<>();
 
-        for(Player[] row : boardElements) {
-            for (Player elem : row) {
+        for(PlayerId[] row : boardElements) {
+            for (PlayerId elem : row) {
                 players.add(elem);
             }
         }

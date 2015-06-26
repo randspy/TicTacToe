@@ -47,8 +47,8 @@ public class Game {
         humanPlayer = new HumanPlayer(input);
 
         mapping = new PlayerToDisplayedCharacterMapping();
-        mapping.map(humanPlayer, "x");
-        mapping.map(computerPlayer, "o");
+        mapping.map(humanPlayer.getId(), "x");
+        mapping.map(computerPlayer.getId(), "o");
 
         switchToHumanPlayer();
     }
@@ -111,19 +111,19 @@ public class Game {
     }
 
     private void humanMakesMove(PositionOnBoard humanPlayerMove) {
-        board.setPlayerAtPosition(humanPlayer, humanPlayerMove);
+        board.setPlayerAtPosition(humanPlayer.getId(), humanPlayerMove);
     }
 
     private void computerMakesMove() {
-        board.setPlayerAtPosition(computerPlayer, computerPlayer.nextMove(board));
+        board.setPlayerAtPosition(computerPlayer.getId(), computerPlayer.nextMove(board));
     }
 
     private void gameFinalResult() {
-        Optional<Player> winner = result.winnerIs(board);
+        Optional<PlayerId> winner = result.winnerIs(board);
         if (!winner.isPresent()) {
             console.printTie();
         }
-        else if(winner.get().equals(computerPlayer)){
+        else if(winner.get().equals(computerPlayer.getId())){
             console.printComputerWon();
         }
     }

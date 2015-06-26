@@ -43,10 +43,10 @@ public class PrintBoardTest {
                 new PlayerToDisplayedCharacterMapping();
 
         Player xPlayer = new HumanPlayer(null);
-        mapping.map(xPlayer, "x");
+        mapping.map(xPlayer.getId(), "x");
 
         Player oPlayer = new HumanPlayer(null);
-        mapping.map(oPlayer, "o");
+        mapping.map(oPlayer.getId(), "o");
 
         Board board = new Board();
         int numberOfFields = board.getDimension() * board.getDimension();
@@ -55,7 +55,7 @@ public class PrintBoardTest {
             boolean isEven = idx % 2 == 0;
             int row = idx / board.getDimension();
             int column = idx % board.getDimension();
-            board.setPlayerAtPosition(isEven ? xPlayer : oPlayer, new PositionOnBoard(row, column));
+            board.setPlayerAtPosition(isEven ? xPlayer.getId() : oPlayer.getId(), new PositionOnBoard(row, column));
         }
 
         assertEquals(expectedConsoleOutput, new PrintBoard().print(board, mapping));

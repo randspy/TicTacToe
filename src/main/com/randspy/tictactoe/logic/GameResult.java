@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class GameResult {
-    private Optional<Player> result;
+    private Optional<PlayerId> result;
     private Board board;
 
-    public Optional<Player> winnerIs(Board board) {
+    public Optional<PlayerId> winnerIs(Board board) {
 
         init(board);
 
-        for(Player player : board.getPresentPlayers())
+        for(PlayerId player : board.getPresentPlayers())
         {
             winnerInRow(player);
             winnerInColumn(player);
@@ -27,37 +27,37 @@ public class GameResult {
         this.board = board;
     }
 
-    private void winnerInDiagonalFromRightToLeft(Player player) {
-        if (doesSequenceBelongToOnePlayer(board.getPlayersAtDiagonalFromRightToLeft(), player)) {
-            result = Optional.of(player);
+    private void winnerInDiagonalFromRightToLeft(PlayerId playerId) {
+        if (doesSequenceBelongToOnePlayer(board.getPlayersAtDiagonalFromRightToLeft(), playerId)) {
+            result = Optional.of(playerId);
         }
     }
 
-    private void winnerInDiagonalFromLeftToRight(Player player) {
-        if (doesSequenceBelongToOnePlayer(board.getPlayersAtDiagonalFromLeftToRight(), player)) {
-            result = Optional.of(player);
+    private void winnerInDiagonalFromLeftToRight(PlayerId playerId) {
+        if (doesSequenceBelongToOnePlayer(board.getPlayersAtDiagonalFromLeftToRight(), playerId)) {
+            result = Optional.of(playerId);
         }
     }
 
-    private void winnerInColumn(Player player) {
+    private void winnerInColumn(PlayerId playerId) {
         for (int idx = 0; idx < board.getDimension(); idx++) {
-            if (doesSequenceBelongToOnePlayer(board.getPlayersAtColumn(idx), player)) {
-                result = Optional.of(player);
+            if (doesSequenceBelongToOnePlayer(board.getPlayersAtColumn(idx), playerId)) {
+                result = Optional.of(playerId);
             }
         }
     }
 
-    private void winnerInRow(Player player) {
+    private void winnerInRow(PlayerId playerId) {
         for (int idx = 0; idx < board.getDimension(); idx++) {
-            if (doesSequenceBelongToOnePlayer(board.getPlayersAtRow(idx), player)) {
-                result = Optional.of(player);
+            if (doesSequenceBelongToOnePlayer(board.getPlayersAtRow(idx), playerId)) {
+                result = Optional.of(playerId);
             }
         }
     }
 
-    private boolean doesSequenceBelongToOnePlayer(Player[] playersAtRow, Player player) {
-        return Arrays.stream(playersAtRow)
-                .filter(field -> field != null && field.equals(player))
+    private boolean doesSequenceBelongToOnePlayer(PlayerId[] playersIdsAtRow, PlayerId playerId) {
+        return Arrays.stream(playersIdsAtRow)
+                .filter(field -> field != null && field.equals(playerId))
                 .count() == board.getDimension();
     }
 

@@ -1,9 +1,10 @@
 package com.randspy.tictactoe.logic;
 
 import java.util.Set;
+import java.util.UUID;
 
-public class ComputerPlayer implements Player {
-    private Player opponent;
+public class ComputerPlayer extends Player {
+    private PlayerId opponent;
     private GameResult gameResult = new GameResult();
     private Board board;
 
@@ -19,7 +20,7 @@ public class ComputerPlayer implements Player {
         init(board);
 
         int initialDepth = 9;
-        MinMaxResult result = minMax(this, initialDepth);
+        MinMaxResult result = minMax(getId(), initialDepth);
         return new PositionOnBoard(result.row, result.column);
     }
 
@@ -28,20 +29,20 @@ public class ComputerPlayer implements Player {
         opponent = getOpponent();
     }
 
-    private Player getOpponent() {
-        Set<Player> players = board.getPresentPlayers();
-        Player opponent = null;
+    private PlayerId getOpponent() {
+        Set<PlayerId> playersIds = board.getPresentPlayers();
+        PlayerId opponent = new PlayerId(UUID.randomUUID());
 
-        for (Player player : players) {
-            if (player != this) {
-                opponent = player;
+        for (PlayerId playerId : playersIds) {
+            if (playerId != getId()) {
+                opponent = playerId;
             }
         }
 
-        return opponent == null ? new ComputerPlayer() : opponent;
+        return opponent;
     }
 
-    private MinMaxResult minMax(Player player, int depth) {
+    private MinMaxResult minMax(PlayerId playerId, int depth) {
 
         MinMaxResult result = new MinMaxResult();
         if (noMoreMovesPossible(depth)) {
@@ -49,11 +50,11 @@ public class ComputerPlayer implements Player {
             return result;
         }
 
-        result.score = getStartingBestScore(player);
+        result.score = getStartingBestScore(playerId);
 
         for (PositionOnBoard possibleMove : board.getEmptyFields()) {
-            setMove(player, possibleMove);
-            if (player == this) {
+            setMove(playerId, possibleMove);
+            if (playerId == getId()) {
                 result = max(depth, result, possibleMove);
             }
             else
@@ -73,19 +74,19 @@ public class ComputerPlayer implements Player {
     private int score(int depth) {
         if (!gameResult.winnerIs(board).isPresent()) {
             return 0;
-        } else if (gameResult.winnerIs(board).get() == this) {
+        } else if (gameResult.winnerIs(board).get() == getId()) {
             return depth + 1;
         } else {
             return -depth - 1;
         }
     }
 
-    private int getStartingBestScore(Player player) {
-        return (player == this) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+    private int getStartingBestScore(PlayerId playerId) {
+        return (playerId == getId()) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
     }
 
-    private void setMove(Player player, PositionOnBoard possibleMove) {
-        board.setPlayerAtPosition(player, possibleMove);
+    private void setMove(PlayerId playerId, PositionOnBoard possibleMove) {
+        board.setPlayerAtPosition(playerId, possibleMove);
     }
 
     private void rollBackMove(PositionOnBoard possibleMove) {
@@ -104,7 +105,7 @@ public class ComputerPlayer implements Player {
     }
 
     private MinMaxResult min(int depth, MinMaxResult result, PositionOnBoard possibleMove) {
-        int score = minMax(this, depth - 1).score;
+        int score = minMax(getId(), depth - 1).score;
         if (score < result.score) {
             result.score = score;
             result.row = possibleMove.getRow();
