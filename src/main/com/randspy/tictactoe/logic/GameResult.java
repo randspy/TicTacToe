@@ -11,12 +11,12 @@ public class GameResult {
 
         init(board);
 
-        for(PlayerId player : board.getPresentPlayers())
+        for(PlayerId playerId : board.getPresentPlayers())
         {
-            winnerInRow(player);
-            winnerInColumn(player);
-            winnerInDiagonalFromLeftToRight(player);
-            winnerInDiagonalFromRightToLeft(player);
+            winnerInRow(playerId);
+            winnerInColumn(playerId);
+            winnerInDiagonalFromLeftToRight(playerId);
+            winnerInDiagonalFromRightToLeft(playerId);
         }
 
         return result;
