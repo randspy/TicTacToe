@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.Assert.*;
 
@@ -24,7 +23,7 @@ public class BoardTest {
     @Before
     public void setUp() throws Exception {
         board = new Board();
-        playerId = new PlayerId(UUID.randomUUID());
+        playerId = new PlayerId();
     }
 
     @Test

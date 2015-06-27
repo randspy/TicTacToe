@@ -5,8 +5,8 @@ import java.util.UUID;
 public class PlayerId {
     private final UUID uuid;
 
-    public PlayerId(UUID uuid) {
-        this.uuid = uuid;
+    public PlayerId() {
+        this.uuid = UUID.randomUUID();
     }
 
     @Override

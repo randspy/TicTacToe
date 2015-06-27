@@ -1,9 +1,7 @@
 package com.randspy.tictactoe.logic;
 
-import java.util.UUID;
-
 public abstract class Player {
-    private PlayerId playerId = new PlayerId(UUID.randomUUID());
+    private PlayerId playerId = new PlayerId();
 
     public abstract PositionOnBoard nextMove(Board board);
 

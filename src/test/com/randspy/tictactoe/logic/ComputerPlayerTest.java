@@ -3,8 +3,6 @@ package com.randspy.tictactoe.logic;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.UUID;
-
 import static org.junit.Assert.assertEquals;
 
 public class ComputerPlayerTest {
@@ -24,7 +22,7 @@ public class ComputerPlayerTest {
     @Before
     public void setUp() throws Exception {
         computer = new ComputerPlayer();
-        opponent = new PlayerId(UUID.randomUUID());
+        opponent = new PlayerId();
         board = new Board();
     }
 

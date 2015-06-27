@@ -4,8 +4,6 @@ import com.randspy.tictactoe.logic.PlayerId;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.UUID;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -16,7 +14,7 @@ public class PlayerToDisplayedCharacterMappingTest {
     @Before
     public void setUp() throws Exception {
         mapping = new PlayerToDisplayedCharacterMapping();
-        playerId = new PlayerId(UUID.randomUUID());
+        playerId = new PlayerId();
     }
 
     private PlayerToDisplayedCharacterMapping mapping;

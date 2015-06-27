@@ -1,7 +1,6 @@
 package com.randspy.tictactoe.logic;
 
 import java.util.Set;
-import java.util.UUID;
 
 public class ComputerPlayer extends Player {
     private PlayerId opponent;
@@ -31,7 +30,7 @@ public class ComputerPlayer extends Player {
 
     private PlayerId getOpponent() {
         Set<PlayerId> playersIds = board.getPresentPlayers();
-        PlayerId opponent = new PlayerId(UUID.randomUUID());
+        PlayerId opponent = new PlayerId();
 
         for (PlayerId playerId : playersIds) {
             if (playerId != getId()) {
