@@ -86,7 +86,6 @@ public class GameTest {
 
     }
 
-
     @Test
     public void whenUserTriesToSetNumberBelowRangeShouldGetMessageWithWaring() {
 
@@ -101,21 +100,4 @@ public class GameTest {
         assertEquals(expectedResult, endResult);
 
     }
-
-    @Test
-    public void whenUserTriesToSetNumberAboveRangeShouldGetMessageWithWaring() {
-
-        setUserInputs("10", "5", "4", "7", "8");
-
-        game.run();
-
-        String endResult = "Illegal input.\n";
-
-        String expectedResult =
-                output.printedOutput.get(output.printedOutput.size() - 3);
-
-        assertEquals(expectedResult, endResult);
-
-    }
-
 }
