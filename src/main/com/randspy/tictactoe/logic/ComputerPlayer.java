@@ -1,5 +1,6 @@
 package com.randspy.tictactoe.logic;
 
+import java.util.Optional;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
@@ -14,13 +15,13 @@ public class ComputerPlayer extends Player {
     }
 
     @Override
-    public PositionOnBoard nextMove(Board board) {
+    public Optional<PositionOnBoard> nextMove(Board board) {
 
         init(board);
 
         int initialDepth = 9;
         MinMaxResult result = minMax(getId(), initialDepth);
-        return new PositionOnBoard(result.row, result.column);
+        return Optional.of(new PositionOnBoard(result.row, result.column));
     }
 
     private void init(Board board) {

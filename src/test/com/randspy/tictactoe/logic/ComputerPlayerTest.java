@@ -13,7 +13,7 @@ public class ComputerPlayerTest {
 
     private void expectMove(PositionOnBoard opponentsMove, int expectedRow, int expectedColumn) {
         board.setPlayerAtPosition(opponent, opponentsMove);
-        PositionOnBoard positionOnBoard = computer.nextMove(board);
+        PositionOnBoard positionOnBoard = computer.nextMove(board).get();
         board.setPlayerAtPosition(computer.getId(), positionOnBoard);
         assertEquals(expectedRow, positionOnBoard.getRow());
         assertEquals(expectedColumn, positionOnBoard.getColumn());

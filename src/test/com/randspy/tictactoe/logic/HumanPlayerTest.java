@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class HumanPlayerTest {
 
@@ -13,9 +14,14 @@ public class HumanPlayerTest {
 
     private void expectInputToBeSetAtPosition(String consoleInput, int row, int column) {
         input.userInputs.add(consoleInput);
-        PositionOnBoard position = player.nextMove(new Board());
+        PositionOnBoard position = player.nextMove(new Board()).get();
         assertEquals(row, position.getRow());
         assertEquals(column, position.getColumn());
+    }
+
+    private void expectInvalidInput(String expected) {
+        input.userInputs.add(expected);
+        assertFalse(player.nextMove(new Board()).isPresent());
     }
 
     @Before
@@ -39,21 +45,22 @@ public class HumanPlayerTest {
 
     @Test
     public void whenNumberBelowRangeThenNotValidBoardPosition() {
-     expectInputToBeSetAtPosition("0", 0, -1);
+        String expected = "0";
+        expectInvalidInput(expected);
     }
 
     @Test
     public void whenNumberAboveRangeThenNotValidBoardPosition() {
-     expectInputToBeSetAtPosition("10", 3, 0);
+        expectInvalidInput("10");
     }
 
     @Test
     public void whenNoInputInputThenNotValidBoardPosition() {
-        expectInputToBeSetAtPosition("", 0, -1);
+        expectInvalidInput("");
     }
 
     @Test
     public void whenInvalidInputThenNotValidBoardPosition() {
-        expectInputToBeSetAtPosition("a", 0, -1);
+        expectInvalidInput("a");
     }
 }

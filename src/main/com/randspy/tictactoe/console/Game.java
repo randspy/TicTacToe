@@ -62,16 +62,16 @@ public class Game {
 
         console.printInstructions();
 
-        PositionOnBoard humanPlayerMove = humanPlayer.nextMove(board);
+        Optional<PositionOnBoard> humanPlayerMove = humanPlayer.nextMove(board);
 
-        if (isInvalidMove(humanPlayerMove)) {
+        if (!humanPlayerMove.isPresent()) {
             console.printInvalidMove();
         }
-        else if (isPositionAlreadyOccupied(humanPlayerMove)) {
+        else if (isPositionAlreadyOccupied(humanPlayerMove.get())) {
             console.printFieldIsOccupied();
         }
         else{
-            humanMakesMove(humanPlayerMove);
+            humanMakesMove(humanPlayerMove.get());
             switchToComputerPlayer();
             printBoard();
         }
@@ -95,17 +95,6 @@ public class Game {
         return !(board.isFull() || result.winnerIs(board).isPresent());
     }
 
-    private boolean isInvalidMove(PositionOnBoard humanPlayerMove) {
-
-        boolean isBellowRange = humanPlayerMove.getRow() < 0 ||
-                                humanPlayerMove.getColumn() < 0;
-
-        boolean isAboveRange =  humanPlayerMove.getRow() >= board.getDimension() ||
-                                humanPlayerMove.getColumn() >= board.getDimension();
-
-        return isBellowRange || isAboveRange;
-    }
-
     private boolean isPositionAlreadyOccupied(PositionOnBoard humanPlayerMove) {
         return board.isPositionOccupied(humanPlayerMove);
     }
@@ -115,7 +104,7 @@ public class Game {
     }
 
     private void computerMakesMove() {
-        board.setPlayerAtPosition(computerPlayer.getId(), computerPlayer.nextMove(board));
+        board.setPlayerAtPosition(computerPlayer.getId(), computerPlayer.nextMove(board).get());
     }
 
     private void gameFinalResult() {
